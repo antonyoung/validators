@@ -4,7 +4,7 @@
 		<PackageId>AntonYoung.Validators.Abstractions</PackageId>
 		<Title>AntonYoung.Validators.Abstractions</Title>
 		<Authors>Anton Young</Authors>
-		<VersionPrefix>0.1.0</VersionPrefix>
+		<VersionPrefix>0.1.1</VersionPrefix>
 		<VersionSuffix>ABST</VersionSuffix>
 		<Product>AntonYoung.Validators.Abstractions</Product>
 		<Description>Shared dependency used by Iban, Postalcode validators</Description>

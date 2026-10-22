@@ -11,7 +11,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-# install dotnet sdk 7.x
+# install dotnet sdk 8.x
 steps:
 - task: UseDotNet@2
   displayName: '//=> dotnet install sdk 8.x'
@@ -40,18 +40,24 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
 
-# dotenet pack nuget-packages as semantic versioning
+# pack nuget packages using versions defined in the projects
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet pack'
   inputs:
     command: pack
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    packagesToPack: '**/*.csproj'
+    configuration: '$(buildConfiguration)'
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+    versioningScheme: 'off'
 
-# dotenet push nuget-packages to project/feed
-- task: NuGetCommand@2
+# authenticate with azure artifacts
+- task: NuGetAuthenticate@1
+  displayName: '//=> nuget authenticate'
+
+# push nuget packages, skipping already-published versions
+- bash: |
+    dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" \
+      --source "https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
+      --api-key AzureArtifacts \
+      --skip-duplicate
   displayName: '//=> dotnet push'
-  inputs:
-    command: push
-    publishVstsFeed: 'Validator/antonyoung-nuget-packages'
-    allowPackageConflicts: true
