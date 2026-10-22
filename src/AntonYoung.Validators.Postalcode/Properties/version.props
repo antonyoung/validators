@@ -4,7 +4,7 @@
 		<PackageId>AntonYoung.Validators.Postalcode</PackageId>
 		<Title>AntonYoung.Validators.Postalcode</Title>
 		<Authors>Anton Young</Authors>
-		<VersionPrefix>0.1.1</VersionPrefix>
+		<VersionPrefix>0.1.2</VersionPrefix>
 		<VersionSuffix>POST</VersionSuffix>
 		<Product>AntonYoung.Validators.Postalcode</Product>
 		<Description>Validator for European Postalcodes</Description>

@@ -49,10 +49,12 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 # dotenet push nuget-packages to project/feed
-- task: DotNetCoreCLI@2
+- task: NuGetAuthenticate@1
+  displayName: '//=> authenticate NuGet'
+
+- bash: |
+    dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" \
+      --source "$(System.CollectionUri)Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
+      --api-key AzureArtifacts \
+      --skip-duplicate
   displayName: '//=> dotnet push'
-  inputs:
-    command: push
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: internal
-    publishVstsFeed: 'Validator/antonyoung-nuget-packages'
