@@ -149,7 +149,7 @@ namespace AntonYoung.Validators.Postalcode.Models
                 { Countries.Ireland,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,
-                        RegexPattern = @"(?<alphanumeric1>(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W))(?<whitespace>\s?)(?<alphanumeric2>[0-9AC-FHKNPRTV-Y]{4}$)",
+                        RegexPattern = @"^(?<alphanumeric1>[AC-FHKNPRTV-Y][0-9]{2}|D6W)(?<whitespace>[ ]?)(?<alphanumeric2>[0-9AC-FHKNPRTV-Y]{4})\z",
                         Example = "D22 YD82"
                     }
                 },
