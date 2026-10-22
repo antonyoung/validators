@@ -49,9 +49,10 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
 
 # dotenet push nuget-packages to project/feed
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   displayName: '//=> dotnet push'
   inputs:
     command: push
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: internal
     publishVstsFeed: 'Validator/antonyoung-nuget-packages'
-    allowPackageConflicts: true
