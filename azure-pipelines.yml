@@ -57,40 +57,7 @@ steps:
 # push nuget packages, skipping already-published versions
 - bash: |
     dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" \
-      --source "$(System.CollectionUri)Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
+      --source "https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
       --api-key AzureArtifacts \
       --skip-duplicate
   displayName: '//=> dotnet push'
-
-
-# # dotenet pack nuget-packages as semantic versioning
-# - task: DotNetCoreCLI@2
-#   displayName: '//=> dotnet pack'
-#   inputs:
-#     command: pack
-#     projects: '**/*.csproj'
-#     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-
-# # dotenet push nuget-packages to project/feed
-# # - task: NuGetToolInstaller@1                            
-# #   displayName: '//=> nuget tool installer'
-
-# # - task: NuGetAuthenticate@1
-# #   displayName: '//=> nuget authenticate'
-
-#   # dotenet push nuget-packages to project/feed
-# - task: NuGetCommand@2
-#   displayName: '//=> dotnet push'
-#   inputs:
-#     command: push
-#     publishVstsFeed: 'Validator/antonyoung-nuget-packages'
-#     allowPackageConflicts: true
-
-# # - bash: |
-# #     dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" \
-# #       --source "$(System.CollectionUri)Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
-# #       --api-key AzureArtifacts \
-# #       --skip-duplicate
-# #   displayName: '//=> dotnet push'
-
-# nuget.exe push -Source "https://pkgs.dev.azure.com/<ORGANIZATION_NAME>/<PROJECT_NAME>/_packaging/<FEED_NAME>/nuget/v3/index.json" -ApiKey az $(Build.ArtifactStagingDirectory)\*.nupkg
