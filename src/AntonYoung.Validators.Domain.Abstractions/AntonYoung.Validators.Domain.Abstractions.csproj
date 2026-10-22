@@ -3,9 +3,10 @@
   <Import Project="..\AntonYoung.Validators.Domain.Abstractions\Properties\license.props" />
 	
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <IsPackable>false</IsPackable>
     <AppDesignerFolder>Properties</AppDesignerFolder>
   </PropertyGroup>
 
