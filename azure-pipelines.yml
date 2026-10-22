@@ -1,28 +1,23 @@
-# .NET Core
-# Build and test .NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 # trigger azure devops pipeline on commit on master
 trigger:
 - master
 
-# use latest ubuntu vm
+
+# vm: ubuntu latest
 pool:
   vmImage: 'ubuntu-latest'
 
-# install dotnet sdk 8.x
+
+# install dotnet sdk 10.x
 steps:
 - task: UseDotNet@2
-  displayName: '//=> dotnet install sdk 8.x'
+  displayName: '//=> dotnet install sdk 10.x'
   inputs:
     packageType: sdk
-    version: 8.0.x
+    version: 10.x
     includePreviewVersions: false
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
-# restore nuget packages
-# - script: dotnet restore
 
 # dotenet build all projects as Release
 - task: DotNetCoreCLI@2
@@ -32,6 +27,7 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration Release'
 
+
 # dotenet test all tests and collect code coverage
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet test'
@@ -39,6 +35,7 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
+
 
 # pack nuget packages using versions defined in the projects
 - task: DotNetCoreCLI@2
@@ -50,9 +47,11 @@ steps:
     packDirectory: '$(Build.ArtifactStagingDirectory)'
     versioningScheme: 'off'
 
+
 # authenticate with azure artifacts
 - task: NuGetAuthenticate@1
   displayName: '//=> nuget authenticate'
+
 
 # push nuget packages, skipping already-published versions
 - bash: |
@@ -60,4 +59,4 @@ steps:
       --source "https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
       --api-key AzureArtifacts \
       --skip-duplicate
-  displayName: '//=> dotnet push'
+  displayName: '//=> dotnet nuget push'
