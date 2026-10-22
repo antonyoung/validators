@@ -145,11 +145,10 @@ namespace AntonYoung.Validators.Postalcode.Models
                         Example = EXAMPLE_5_DIGITS
                     }
                 },
-                //=> Ireland: not sure how correct this is?
                 { Countries.Ireland,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,
-                        RegexPattern = @"(?<alphanumeric1>(?:^[AC-FHKNPRTV-Y][0-9]{2}|D6W))(?<whitespace>\s?)(?<alphanumeric2>[0-9AC-FHKNPRTV-Y]{4}$)",
+                        RegexPattern = @"^(?<alphanumeric1>[AC-FHKNPRTV-Y][0-9]{2}|D6W)(?<whitespace>\s?)(?<alphanumeric2>[0-9AC-FHKNPRTV-Y]{4})\z",
                         Example = "D22 YD82"
                     }
                 },
