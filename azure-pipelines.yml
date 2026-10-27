@@ -59,5 +59,4 @@ steps:
     dotnet nuget push "$(Build.ArtifactStagingDirectory)/nuget/*.nupkg" \
       --source "https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
       --api-key AzureArtifacts \
-      --skip-duplicate
   displayName: '//=> dotnet nuget push'
