@@ -4,20 +4,19 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageIcon>packageIcon.png</PackageIcon>
-		<PackageProjectUrl>https://github.com/antonyoung/Validators</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/antonyoung/validators</PackageProjectUrl>
 		<SignAssembly>True</SignAssembly>
-		<AssemblyOriginatorKeyFile>..\AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)../../AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\packageIcon.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
+		<None Include="$(MSBuildThisFileDirectory)../../../LICENSE"
+			Pack="true"
+			PackagePath="\" />
+
+		<None Include="$(MSBuildThisFileDirectory)../../packageIcon.png"
+			Pack="true"
+			PackagePath="\" />
 	</ItemGroup>
 
 </Project>
