@@ -37,25 +37,26 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
 
 
-# pack nuget packages using versions defined in the projects
+# pack only the intended NuGet projects
 - task: DotNetCoreCLI@2
   displayName: '//=> dotnet pack'
   inputs:
     command: pack
-    packagesToPack: '**/*.csproj'
+    packagesToPack: >-
+      src/AntonYoung.Validators.Abstractions/AntonYoung.Validators.Abstractions.csproj;
+      src/AntonYoung.Validators.Postalcode/AntonYoung.Validators.Postalcode.csproj;
+      src/AntonYoung.Validators.Iban/AntonYoung.Validators.Iban.csproj
     configuration: '$(buildConfiguration)'
-    packDirectory: '$(Build.ArtifactStagingDirectory)'
+    packDirectory: '$(Build.ArtifactStagingDirectory)/nuget'
     versioningScheme: 'off'
 
-
-# authenticate with azure artifacts
+# authenticate with Azure Artifacts
 - task: NuGetAuthenticate@1
   displayName: '//=> nuget authenticate'
 
-
-# push nuget packages, skipping already-published versions
+# push only packages from the dedicated NuGet output directory
 - bash: |
-    dotnet nuget push "$(Build.ArtifactStagingDirectory)/*.nupkg" \
+    dotnet nuget push "$(Build.ArtifactStagingDirectory)/nuget/*.nupkg" \
       --source "https://pkgs.dev.azure.com/antonyoung/Validator/_packaging/antonyoung-nuget-packages/nuget/v3/index.json" \
       --api-key AzureArtifacts \
       --skip-duplicate
