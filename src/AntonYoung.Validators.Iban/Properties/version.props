@@ -5,10 +5,10 @@
 		<Title>AntonYoung.Validators.Iban</Title>
 		<Authors>Anton Young</Authors>
 		<VersionPrefix>0.1.1</VersionPrefix>
-		<VersionSuffix>preview.1</VersionSuffix>
+		<VersionSuffix>preview.2</VersionSuffix>
 		<Product>AntonYoung.Validators.Iban</Product>
 		<Description>Validator for European International Bank Account Number (IBAN)</Description>
-		<Copyright>Copyright © 2022 Anton Young, Amsterdam</Copyright>
+		<Copyright>Copyright © 2022-2026 Anton Young, Amsterdam</Copyright>
 		<PackageTags>AntonYoung;Validators;Iban;Validators.Iban</PackageTags>
     </PropertyGroup>
 	

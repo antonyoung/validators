@@ -4,7 +4,6 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<PackageIcon>packageIcon.png</PackageIcon>
-		<PackageIconUrl>https://raw.githubusercontent.com/antonyoung/validators/master/src/packageIcon.png</PackageIconUrl>
 		<PackageProjectUrl>https://github.com/antonyoung/validators</PackageProjectUrl>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)../../AntonYoung.Validators.snk</AssemblyOriginatorKeyFile>
