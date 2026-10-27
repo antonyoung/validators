@@ -5,7 +5,7 @@
 		<Title>AntonYoung.Validators.Postalcode</Title>
 		<Authors>Anton Young</Authors>
 		<VersionPrefix>0.1.2</VersionPrefix>
-		<VersionSuffix>preview.2</VersionSuffix>
+		<VersionSuffix>preview.3</VersionSuffix>
 		<Product>AntonYoung.Validators.Postalcode</Product>
 		<Description>Validator for European Postalcodes</Description>
 		<Copyright>Copyright © 2022-2026 Anton Young, Amsterdam</Copyright>
