@@ -241,11 +241,19 @@ namespace AntonYoung.Validators.Postalcode.Models
                         Example = $"{PREFIX_SWEDEN}{EXAMPLE_5_DIGITS_WHITESPACE}"
                     }
                 },
-                //=> United Kingdom: not sure how correct this is?
                 { Countries.UnitedKingdom,
                     new PostalcodeRuleSetModel {
                         DisplayFormat = FORMAT_ALPHANUMERIC,
-                        RegexPattern = @"^(?<alphanumeric1>(([A-Z][0-9]{1,2})|(([A-Z][A-HJ-Y][0-9]{1,2})|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))))(?<whitespace>\s?)(?<alphanumeric2>[0-9][A-Z]{2}$)",
+                        RegexPattern =
+                            @"(?x)\A
+                              (?<alphanumeric1>
+                                  GIR(?=(?<whitespace>\s?)0AA\z)
+                                  | [A-PR-UWYZ][0-9]{1,2}
+                                  | [A-PR-UWYZ][A-HK-Y][0-9]{1,2}
+                                  | [A-PR-UWYZ][0-9][A-HJKPSTUW]
+                                  | [A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]
+                              )
+                              (?<whitespace>\s?)(?<alphanumeric2>[0-9][ABD-HJLNP-UW-Z]{2})\z",
                         Example = "DN55 1PT"
                     }
                 }

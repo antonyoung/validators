@@ -25,6 +25,10 @@ namespace AntonYoung.Validators.Postalcode.Tests
         [InlineData(Countries.UnitedKingdom, "B33 8TH")]
         [InlineData(Countries.UnitedKingdom, "M1 1AE")]
         [InlineData(Countries.UnitedKingdom, "W1A 0AX")]
+        [InlineData(Countries.UnitedKingdom, "SW1A 1AA")]
+        [InlineData(Countries.UnitedKingdom, "GIR 0AA")]
+        [InlineData(Countries.UnitedKingdom, "BT1 5GS")]
+        [InlineData(Countries.UnitedKingdom, "EH1 1YZ")]
         [InlineData(Countries.Ireland, "D22 YD82")]
         public void IsValid(Countries country, string postalCode)
         {
@@ -58,6 +62,9 @@ namespace AntonYoung.Validators.Postalcode.Tests
         [Theory]
         [InlineData(Countries.UnitedKingdom, "x2")]
         [InlineData(Countries.UnitedKingdom, "2344 AAA")]
+        [InlineData(Countries.UnitedKingdom, "EHA 1AA")]
+        [InlineData(Countries.UnitedKingdom, "EH1 1CI")]
+        [InlineData(Countries.UnitedKingdom, "GIR 1AA")]
         [InlineData(Countries.Ireland, "222 YD82")]
         public void InValid(Countries country, string postalCode)
         {
