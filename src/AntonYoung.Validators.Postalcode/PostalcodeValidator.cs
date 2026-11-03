@@ -6,18 +6,25 @@ using AntonYoung.Validators.Postalcode.Models;
 using System;
 using System.Text.RegularExpressions;
 
+
 namespace AntonYoung.Validators.Postalcode
 {
     /// <summary>
     ///     used as all business logic behind postalcodes of European countries ( with the exceptions with preifix <see cref="Countries.Finland"/> )
     ///     validates and formats the postalcode according to the selected country.
     /// </summary>
-    public class PostalcodeValidator : IPostalcodeValidator
+    public class PostalcodeValidator 
+        : IPostalcodeValidator
     {
         /// <summary>
         ///     used as internal business rules of European postalcodes.
         /// </summary>
         private readonly IPostalcodeModel _model;
+
+        /// <summary>
+        ///     used as configured default country of European postalcodes.
+        /// </summary>
+        private readonly Countries _defaultCountry;
 
         /// <summary>
         ///     used as internal business rules of postalcode of selected country.
@@ -60,13 +67,18 @@ namespace AntonYoung.Validators.Postalcode
             }
         }
 
+
         /// <summary>
         ///     used as constructor to initiliaze the class with the internal business rules of all internal postalcodes.
         /// </summary>
         /// <param name="model">
         ///     used as the interface, for the internal business logic to be used.
         /// </param>
-        public PostalcodeValidator(IPostalcodeModel model) => _model = model;
+        public PostalcodeValidator(
+            IPostalcodeModel model, 
+            Countries defaultCountry = Countries.Netherlands) 
+            => (_model, _defaultCountry) = (model, defaultCountry);
+        
 
         /// <summary>
         ///     validates and formats postalcode with default country The Netherlands and default formatter as expected.
@@ -83,8 +95,9 @@ namespace AntonYoung.Validators.Postalcode
         ///     <seealso cref="bool"/> is valid or not and with default country <see cref="Countries.Netherlands"/>
         /// </returns>
         public bool TryValidate(string value, out string result) 
-            => TryValidate(value, Countries.Netherlands, out result);
+            => TryValidate(value, _defaultCountry, out result);
 
+        
         /// <summary>
         ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
         /// </summary>
@@ -105,6 +118,7 @@ namespace AntonYoung.Validators.Postalcode
         public bool TryValidate(string value, Countries country, out string result) 
             => TryValidate(value, country, Formatters.None, out result);
 
+        
         /// <summary>
         ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
         /// </summary>
@@ -128,6 +142,7 @@ namespace AntonYoung.Validators.Postalcode
         public bool TryValidate(string value, Countries country, Formatters formatter, out string result)
             => TryValidate(value, country, formatter, string.Empty, out result);
 
+        
         /// <summary>
         ///     validates and formats postalcode with provided country with default formatter as writen lanquage.
         /// </summary>
@@ -158,7 +173,11 @@ namespace AntonYoung.Validators.Postalcode
             if (!_model.Rules.TryGetValue(country, out _logic))
                 throw new NotSupportedException(nameof(country));
 
-            var match = Regex.Match(_input, _logic.RegexPattern);
+            var match = Regex.Match(
+                _input, 
+                _logic.RegexPattern, 
+                RegexOptions.Singleline, 
+                TimeSpan.FromMilliseconds(5));
 
             IsValid = match.Success;
 
@@ -166,6 +185,7 @@ namespace AntonYoung.Validators.Postalcode
 
             return _isValid;
         }
+
 
         /// <summary>
         ///     internal formatting logic, based on the groups that are in the match of whatever regular ecpression.
