@@ -2,6 +2,7 @@
 using AntonYoung.Validators.Postalcode.Models;
 using System.Collections.Generic;
 
+
 namespace AntonYoung.Validators.Postalcode.Infrastructure
 {
     /// <summary>

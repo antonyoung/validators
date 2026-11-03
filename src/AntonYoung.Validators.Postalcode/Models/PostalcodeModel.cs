@@ -3,9 +3,11 @@ using AntonYoung.Validators.Postalcode.Infrastructure;
 using System;
 using System.Collections.Generic;
 
+
 namespace AntonYoung.Validators.Postalcode.Models
 {
-    public class PostalcodeModel : IPostalcodeModel
+    public class PostalcodeModel 
+        : IPostalcodeModel
     {
         //=> constants: used 2 => n times.
         private const string EXAMPLE_4_DIGITS               = "1234";
@@ -33,6 +35,7 @@ namespace AntonYoung.Validators.Postalcode.Models
         private const string REGEX_5_DIGITS                 = "(?<digits>^[1-9][0-9]{4}$)";
         private const string REGEX_5_DIGITS_PREFIX          = "^(?<prefix>(?i)<REPLACE_PREFIX>)?(?<digits>[1-9][0-9]{4}$)";
         private const string REGEX_5_DIGITS_WHITESPACE      = @"(?<digits1>^[1-9][0-9]{2})(?<whitespace>\s?)(?<digits2>[0-9]{2}$)";
+
 
         /// <summary>
         ///     data source off all set countries and their internal business logic.

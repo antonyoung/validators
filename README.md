@@ -55,7 +55,6 @@ dotnet add package Microsoft.Extensions.DependencyInjection
 This example registers both validators and resolves them from a service provider. In an existing hosted application, add the registrations to its service collection instead of creating a separate provider.
 
 ```csharp
-using System;
 using AntonYoung.Validators.Abstractions.Enums;
 using AntonYoung.Validators.Iban;
 using AntonYoung.Validators.Iban.Infrastructure;
@@ -64,11 +63,16 @@ using AntonYoung.Validators.Postalcode;
 using AntonYoung.Validators.Postalcode.Infrastructure;
 using AntonYoung.Validators.Postalcode.Models;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 var services = new ServiceCollection();
 
 services.AddTransient<IPostalcodeModel, PostalcodeModel>();
 services.AddTransient<IPostalcodeValidator, PostalcodeValidator>();
+services.AddTransient<IPostalcodeValidator>(provider =>
+    new PostalcodeValidator(
+        provider.GetRequiredService<IPostalcodeModel>(),
+        Countries.Ireland));
 
 services.AddTransient<IIbanModel, IbanModel>();
 services.AddTransient<IIbanValidator, IbanValidator>();
@@ -78,7 +82,17 @@ using var provider = services.BuildServiceProvider();
 var postalcodeValidator = provider.GetRequiredService<IPostalcodeValidator>();
 var ibanValidator = provider.GetRequiredService<IIbanValidator>();
 
-bool postalcodeIsValid = postalcodeValidator.TryValidate(
+bool postalcodeIsValid;
+
+// Uses the configured default country: Ireland.
+postalcodeIsValid = postalcodeValidator.TryValidate(
+    "D22 YD82",
+    out string postalcode);
+
+Console.WriteLine(postalcodeIsValid); // True
+Console.WriteLine(postalcode);        // D22 YD82
+
+postalcodeIsValid = postalcodeValidator.TryValidate(
     "1062GD",
     Countries.Netherlands,
     out string postalcode);

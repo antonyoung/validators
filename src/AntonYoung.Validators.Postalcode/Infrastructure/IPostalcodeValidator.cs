@@ -5,7 +5,7 @@ namespace AntonYoung.Validators.Postalcode.Infrastructure
     /// <summary>
     ///     interface to be used for postal code business logic according to each country in Europe
     /// </summary>
-    public interface IPostalcodeValidator // : IPostcodeModel
+    public interface IPostalcodeValidator
     {
         /// <summary>
         ///     used as example postalcode of the set country. 
